@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"><script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
+</head>
+
+<body ng-app="app" ng-controller="controller">
+    <h3>This page contains onlyy javascript so please open dev console</h3>
+    <h4>
+        This algorithm is used for preorder traversing for any node that has nth number of childern and it will give us basic order with their particular nth node index start from 0 to nth
+    </h4>
+    <script>
+
+        var app = angular.module("app", []);
+        app.controller('controller', function(){
+
+            var mainList = [{
+                name: "Jappan",
+                id: 1,
+                parentID: 0,
+                mainParentID: 0
+            },
+            {
+                name: "Jappan",
+                id: 2,
+                parentID: 0,
+                mainParentID: 0
+            },
+            {
+                name: "Jappan",
+                id: 3,
+                parentID: 2,
+                mainParentID: 2
+            }, {
+                name: "Jappan",
+                id: 4,
+                parentID: 3,
+                mainParentID: 2
+            }, {
+                name: "Jappan",
+                id: 5,
+                parentID: 1,
+                mainParentID: 1
+            }, {
+                name: "Jappan",
+                id: 6,
+                parentID: 5,
+                mainParentID: 1
+            }, {
+                name: "Jappan",
+                id: 7,
+                parentID: 5,
+                mainParentID: 1
+            }, {
+                name: "Jappan",
+                id: 8,
+                parentID: 0,
+                mainParentID: 0
+            }, {
+                name: "Jappan",
+                id: 9,
+                parentID: 8,
+                mainParentID: 8
+            }, {
+                name: "Jappan",
+                id: 10,
+                parentID: 9,
+                mainParentID: 8
+            }, {
+                name: "Jappan",
+                id: 11,
+                parentID: 7,
+                mainParentID: 1
+            }, {
+                name: "Jappan",
+                id: 12,
+                parentID: 5,
+                mainParentID: 1
+            }, {
+                name: "Jappan",
+                id: 13,
+                parentID: 7,
+                mainParentID: 1
+            }, {
+                name: "Jappan",
+                id: 14,
+                parentID: 3,
+                mainParentID: 2
+            }, {
+                name: "Jappan",
+                id: 15,
+                parentID: 5,
+                mainParentID: 1
+            }, {
+                name: "Jappan",
+                id: 16,
+                parentID: 11,
+                mainParentID: 1
+            }
+        ];
+
+        var sortedList = [];
+
+        var hasNotAnyParent = $.grep(mainList, function(i){
+            return i.parentID == 0 && i.mainParentID == 0
+        })
+
+        console.log(hasNotAnyParent);
+
+        // Loop through all has not any parent id
+        angular.forEach(hasNotAnyParent, function(i,k){
+            var logger = returnChilds(i,0);
+            console.log(logger);
+        })
+
+        console.log(sortedList);
+
+
+        // Funciton that return all child list
+        function returnChilds(item,level){
+            if(item){
+                item.level = level;
+                // chekc if object has any children or not
+                if($.grep(mainList, function(i){return i.parentID == item.id}).length > 0){
+                    sortedList.push(item);
+                    angular.forEach($.grep(mainList, function(i){return i.parentID == item.id}), function(i,k){
+                        returnChilds(i,level + 1);
+                    })
+                }else{
+                    sortedList.push(item);
+                }
+                
+            }
+        }
+
+
+        })
+
+       
+
+    </script>
+</body>
+
+</html>
